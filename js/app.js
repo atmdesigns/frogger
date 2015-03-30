@@ -67,8 +67,10 @@ Player.prototype.render = function() {
 
 // Move player back to beginning if he reaches the water
 Player.prototype.reset = function() {
+    
     this.x = 200;
     this.y = 400;
+
 }
 
 // Implement logic based on key pressed
@@ -91,6 +93,20 @@ Player.prototype.handleInput = function(direction) {
     }
 }
 
+function checkCollisions () {
+    allEnemies.forEach(function(enemy) {
+        if (enemy.x < player.x + 50 &&
+            enemy.x + 70 > player.x &&
+            enemy.y < player.y + 50 &&
+            enemy.y + 70 > player.y) 
+        {
+            console.log('collision');
+            player.lives --;
+            console.log(player.lives);
+            player.reset();
+        }
+    });
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -115,7 +131,6 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
     
-     
     player.handleInput(allowedKeys[e.keyCode]);
     
 
